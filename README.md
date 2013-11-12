@@ -21,12 +21,12 @@ api = Faraday.new('https://api.example.com/') do |faraday|
 end
 
 root = Cetacean.new(api.get)
-users = Cetacean.new(api.get(root.get_uri(:users)))
+users = Cetacean.new(api.get(root.get_uri(:users).to_s))
 user = users.embedded(:users).first
 
-important_blog_post = Cetacean.new(api.get(user.get_uri(:post, id: 2)))
+important_blog_post = Cetacean.new(api.get(user.get_uri(:post).expand(id: 2)))
 
-interesting_blog_posts = Cetacean.new(api.get(root.get_uri(:search_posts, q: 'interesting')))
+interesting_blog_posts = Cetacean.new(api.get(root.get_uri(:search_posts).expand(q: 'interesting')))
 ```
 
 Check out the specs for more detailed uses.
