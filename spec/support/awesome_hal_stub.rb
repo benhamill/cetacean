@@ -1,7 +1,9 @@
 class AwesomeHalStub < HalServiceStub
   get '/' do
     {
-      _links: { href: '/' },
+      _links: {
+        self: { href: '/' },
+      },
     }
   end
 end
