@@ -1,4 +1,4 @@
-> Everything the system does for you, it also does to you.
+> Everything the system does *for* you, it also does *to* you.
 
 # Cetacean
 
