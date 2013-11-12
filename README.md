@@ -1,4 +1,5 @@
-> Everything the system does *for* you, it also does *to* you.
+> Everything the system does *for* you, the system also does *to* you.
+> <br>—Don Leaver
 
 # Cetacean [![Build Status](https://travis-ci.org/benhamill/cetacean.png)](https://travis-ci.org/benhamill/cetacean) [![Code Climate](https://codeclimate.com/github/benhamill/cetacean.png)](https://codeclimate.com/github/benhamill/cetacean)
 
