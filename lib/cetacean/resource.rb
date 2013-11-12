@@ -1,6 +1,11 @@
 require 'uri_template'
+require 'forwardable'
 
 module Cetacean::Resource
+  extend Forwardable
+
+  def_delegators :hal, :[], :fetch
+
   def get_uri(rel)
     return unless links.include?(rel.to_s)
 

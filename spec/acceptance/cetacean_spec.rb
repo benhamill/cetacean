@@ -19,6 +19,7 @@ describe Cetacean do
               _links: {
                 self: { href: '/' },
               },
+              api_ranking: 'the best'
             }
           )
         end
@@ -37,6 +38,18 @@ describe Cetacean do
 
     it "returns URITemplates when asked for a uri" do
       expect(subject.get_uri(:self)).to be_a(URITemplate)
+    end
+
+    it "allows access to attributes with []" do
+      expect(subject['api_ranking']).to eq('the best')
+    end
+
+    it "allows access to attributes with fetch" do
+      expect(subject.fetch('api_ranking')).to eq('the best')
+    end
+
+    it "does defaulting on attribute fetches" do
+      expect(subject.fetch('not an attribute', 'default')).to eq('default')
     end
   end
 
