@@ -2,15 +2,15 @@ require 'spec_helper'
 require 'json'
 
 describe Cetacean do
-  before do
-    stub_service('http://api.example.com', AwesomeHalStub)
-  end
-
   let(:api) do
     Faraday.new('http://api.example.com') do |f|
       f.headers['Accept'] = 'application/hal+json'
       f.adapter Faraday.default_adapter
     end
+  end
+
+  before do
+    stub_service('http://api.example.com', AwesomeHalStub)
   end
 
   context "when fed a valid HAL response" do
@@ -22,6 +22,52 @@ describe Cetacean do
 
     it "can find links by rel" do
       expect(subject.get_uri(:self)).to eq('/')
+    end
+
+    it "returns URITemplates when asked for a uri" do
+      expect(subject.get_uri(:self)).to be_a(URITemplate)
+    end
+  end
+
+  context "when fed invalid HAL" do
+    before do
+      stub_service 'http://api.example.com', Sinatra.new do
+        get '/' do
+          content_type 'application/hal+json'
+          "<html></html>"
+        end
+      end
+    end
+
+    subject { Cetacean.new(api.get) }
+
+    it "thinks it's HAL" do
+      expect(subject).to be_hal
+    end
+
+    it "can't find links by rel" do
+      expect(subject.get_uri(:self)).to be_nil
+    end
+  end
+
+  context "when fed non-HAL" do
+    before do
+      stub_service('http://api.example.com', AwesomeHalStub) do
+        get '/' do
+          content_type :html
+          "<html></html>"
+        end
+      end
+    end
+
+    subject { Cetacean.new(api.get) }
+
+    it "knows it isn't HAL" do
+      expect(subject).to_not be_hal
+    end
+
+    it "can't find links by rel" do
+      expect(subject.get_uri(:self)).to be_nil
     end
   end
 end

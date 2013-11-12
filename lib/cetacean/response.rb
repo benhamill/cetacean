@@ -18,6 +18,8 @@ class Cetacean::Response
   end
 
   def parse_hal
-    JSON.parse(response.body)
+    hal? ? JSON.parse(response.body) : {}
+  rescue JSON::JSONError, TypeError
+    {}
   end
 end
