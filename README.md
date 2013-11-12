@@ -1,6 +1,14 @@
+> Everything the system does for you, it also does to you.
+
 # Cetacean
 
-Operate HAL-based Hypermedia APIs in an object-oriented way.
+The [HAL](http://stateless.co/hal_specification.html) client that does almost
+nothing for/to you.
+
+Cetacean is tightly coupled to [Faraday](http://rubygems.org/gems/faraday), but
+doesn't actually call it. You set up your own Faraday client and use it to make
+requests. You feed Cetacean `Faraday::Request` objects and it helps you figure
+out if they're HAL documents and pull useful data out of them if they are.
 
 
 ## Usage
@@ -8,13 +16,20 @@ Operate HAL-based Hypermedia APIs in an object-oriented way.
 Something like this:
 
 ```ruby
-api = Cetacean.new('https://api.example.com/')
+api = Faraday.new('https://api.example.com/') do |faraday|
+  faraday.headers['Accept'] = 'application/hal+json'
+end
 
-users = api.links.users.get
-user = users.embedded.first
+root = Cetacean.new(api.get)
+users = Cetacean.new(api.get(root.get_uri(:users)))
+user = users.embedded(:users).first
 
-important_blog_post = user.links.post.expand(id: 2).get
+important_blog_post = Cetacean.new(api.get(user.get_uri(:post, id: 2)))
+
+interesting_blog_posts = Cetacean.new(api.get(root.get_uri(:search_posts, q: 'interesting')))
 ```
+
+Check out the specs for more detailed uses.
 
 
 ## Contributing

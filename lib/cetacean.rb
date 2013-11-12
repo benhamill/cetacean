@@ -1,5 +1,4 @@
-require "cetacean/version"
-
 module Cetacean
-  # Your code goes here...
+  def self.new(url)
+  end
 end
