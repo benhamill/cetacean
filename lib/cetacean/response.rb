@@ -1,5 +1,8 @@
+require 'forwardable'
+
 class Cetacean::Response
   include Cetacean::Resource
+  extend Forwardable
 
   def_delegators :response, :status, :success?, :body
 

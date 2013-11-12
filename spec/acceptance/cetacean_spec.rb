@@ -19,7 +19,16 @@ describe Cetacean do
               _links: {
                 self: { href: '/' },
               },
-              api_ranking: 'the best'
+              api_ranking: 'the best',
+              _embedded: {
+                singular: {
+                  _links: { self: { href: '/singular' } }
+                },
+                plural: [
+                  { _links: { self: { href: '/plural/1' } } },
+                  { _links: { self: { href: '/plural/2' } } },
+                ]
+              }
             }
           )
         end
@@ -58,6 +67,21 @@ describe Cetacean do
 
     it "hands out a hash of attributes" do
       expect(subject.attributes).to eq('api_ranking' => 'the best')
+    end
+
+    it "lists embeds" do
+      expect(subject.embedded).to include('singular')
+      expect(subject.embedded).to include('plural')
+    end
+
+    it "handles singular embeds" do
+      expect(subject.embedded(:singular).get_uri(:self)).to eq('/singular')
+    end
+
+    it "handles plural embeds" do
+      subject.embedded(:plural).each_with_index do |plur, index|
+        expect(plur.get_uri(:self)).to eq("/plural/#{index + 1}")
+      end
     end
   end
 
