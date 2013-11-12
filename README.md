@@ -1,6 +1,6 @@
 > Everything the system does *for* you, it also does *to* you.
 
-# Cetacean [![Build Status](https://travis-ci.org/benhamill/cetacean.png)](https://travis-ci.org/benhamill/cetacean)
+# Cetacean [![Build Status](https://travis-ci.org/benhamill/cetacean.png)](https://travis-ci.org/benhamill/cetacean) [![Code Climate](https://codeclimate.com/github/benhamill/cetacean.png)](https://codeclimate.com/github/benhamill/cetacean)
 
 The [HAL](http://stateless.co/hal_specification.html) client that does almost
 nothing for/to you.
