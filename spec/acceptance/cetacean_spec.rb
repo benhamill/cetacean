@@ -36,6 +36,10 @@ describe Cetacean do
       expect(subject.get_uri(:self)).to eq('/')
     end
 
+    it "hands out the links hash" do
+      expect(subject.links).to eq('self' => { 'href' => '/' })
+    end
+
     it "returns URITemplates when asked for a uri" do
       expect(subject.get_uri(:self)).to be_a(URITemplate)
     end

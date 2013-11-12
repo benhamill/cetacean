@@ -17,8 +17,6 @@ module Cetacean::Resource
     URITemplate.new(links[rel.to_s]['href'])
   end
 
-  private
-
   def links
     hal['_links'] || {}
   end

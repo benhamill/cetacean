@@ -1,6 +1,8 @@
 class Cetacean::Response
   include Cetacean::Resource
 
+  def_delegators :response, :status, :success?, :body
+
   attr_reader :response
 
   # Feed me Faraday::Response objects or things that quack like them.
