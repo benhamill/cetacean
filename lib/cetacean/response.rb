@@ -3,10 +3,13 @@ class Cetacean::Response
 
   attr_reader :response
 
+  # Feed me Faraday::Response objects or things that quack like them.
   def initialize(response)
     @response = response
   end
 
+  # Tells you whether the response thinks it's a HAL document or not. Does no
+  # validation.
   def hal?
     response.headers['content-type'] =~ %r{\Aapplication/hal\+json}
   end

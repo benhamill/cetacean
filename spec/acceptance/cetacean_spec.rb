@@ -9,11 +9,22 @@ describe Cetacean do
     end
   end
 
-  before do
-    stub_service('http://api.example.com', AwesomeHalStub)
-  end
-
   context "when fed a valid HAL response" do
+    before do
+      stub_service 'http://api.example.com', Sinatra.new do
+        get '/' do
+          content_type 'application/hal+json'
+          JSON.dump(
+            {
+              _links: {
+                self: { href: '/' },
+              },
+            }
+          )
+        end
+      end
+    end
+
     subject { Cetacean.new(api.get) }
 
     it "knows it's HAL" do
@@ -52,9 +63,8 @@ describe Cetacean do
 
   context "when fed non-HAL" do
     before do
-      stub_service('http://api.example.com', AwesomeHalStub) do
+      stub_service 'http://api.example.com', Sinatra.new do
         get '/' do
-          content_type :html
           "<html></html>"
         end
       end

@@ -6,9 +6,6 @@ require 'pry'
 require 'sinatra/base'
 require 'faraday'
 
-require_relative 'support/hal_service_stub'
-require_relative 'support/awesome_hal_stub'
-
 RSpec.configure do |config|
   config.treat_symbols_as_metadata_keys_with_true_values = true
   config.run_all_when_everything_filtered = true
