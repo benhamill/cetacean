@@ -8,8 +8,8 @@ Gem::Specification.new do |spec|
   spec.version       = Cetacean::VERSION
   spec.authors       = ["Ben Hamill"]
   spec.email         = ["git-commits@benhamill.com"]
-  spec.description   = %q{Operate HAL-based Hypermedia APIs in an object-oriented way.}
-  spec.summary       = %q{Operate HAL-based Hypermedia APIs.}
+  spec.description   = %q{The HAL client that does almost nothing for/to you.}
+  spec.summary       = %q{The HAL client that does almost nothing for/to you.}
   spec.homepage      = ""
   spec.license       = "MIT"
 
@@ -19,6 +19,7 @@ Gem::Specification.new do |spec|
   spec.require_paths = ["lib"]
 
   spec.add_dependency "faraday", "~> 0.8"
+  spec.add_dependency "uri_template", "~> 0.6"
   # spec.add_dependency "activesupport", "~> 4.0"
 
   spec.add_development_dependency "bundler", "~> 1.3"
