@@ -3,6 +3,11 @@ require 'cetacean'
 
 require 'webmock/rspec'
 require 'pry'
+require 'sinatra/base'
+require 'faraday'
+
+require_relative 'support/hal_service_stub'
+require_relative 'support/awesome_hal_stub'
 
 RSpec.configure do |config|
   config.treat_symbols_as_metadata_keys_with_true_values = true
@@ -20,3 +25,14 @@ RSpec.configure do |config|
 end
 
 WebMock.disable_net_connect!
+
+def stub_service(uri, stub, &block)
+  uri = URI.parse(uri)
+  port = uri.port != uri.default_port ? ":#{uri.port}" : ""
+  stub = block ? Sinatra.new(stub, &block) : stub
+
+  WebMock.stub_request(
+    :any,
+    %r{^#{uri.scheme}://(.*:.*@)?#{uri.host}#{port}/.*$}
+  ).to_rack(stub)
+end
