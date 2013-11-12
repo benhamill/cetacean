@@ -51,6 +51,10 @@ describe Cetacean do
     it "does defaulting on attribute fetches" do
       expect(subject.fetch('not an attribute', 'default')).to eq('default')
     end
+
+    it "hands out a hash of attributes" do
+      expect(subject.attributes).to eq('api_ranking' => 'the best')
+    end
   end
 
   context "when fed invalid HAL" do
