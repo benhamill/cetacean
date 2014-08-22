@@ -83,6 +83,10 @@ describe Cetacean do
         expect(plur.get_uri(:self)).to eq("/plural/#{index + 1}")
       end
     end
+
+    it "allows index access on plural embeds" do
+      expect(subject.embedded(:plural)[0].get_uri(:self).to_s).to eq("/plural/1")
+    end
   end
 
   context "when fed invalid HAL" do
