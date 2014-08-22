@@ -1,6 +1,6 @@
 # Changes
 
-## Unreleased
+## 1.1.0
 
 * Allow index access to `EmbeddedResourceCollection`s. - Ben Hamill
 
