@@ -4,7 +4,7 @@ class Cetacean::Response
   include Cetacean::Resource
   extend Forwardable
 
-  def_delegators :response, :status, :success?, :body
+  def_delegators :response, :status, :success?, :body, :headers
 
   attr_reader :response
 
